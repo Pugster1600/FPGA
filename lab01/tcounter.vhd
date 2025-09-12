@@ -32,6 +32,12 @@ architecture behavior of tcounter is
     signal q4 : std_logic;
     signal d4 : std_logic;
 
+    signal c1 : std_logic;
+    signal c2 : std_logic;
+    signal c3 : std_logic;
+    signal c4 : std_logic;
+
+
     -- 2. component declaration
     component dffar is
       port(
@@ -54,7 +60,7 @@ architecture behavior of tcounter is
     dffar1 : dffar
       port map (
           r => r,
-          c => d0, -- connecting a wire to this port, wire also connected to d0 of another chip!
+          c => c1, -- connecting a wire to this port, wire also connected to d0 of another chip!
           q => q1,
           d => d1
       );
@@ -62,7 +68,7 @@ architecture behavior of tcounter is
     dffar2 : dffar
       port map (
           r => r,
-          c => d1,
+          c => c2,
           q => q2,
           d => d2
       );
@@ -70,7 +76,7 @@ architecture behavior of tcounter is
     dffar3 : dffar
       port map (
           r => r,
-          c => d2,
+          c => c3,
           q => q3,
           d => d3
       );
@@ -78,10 +84,20 @@ architecture behavior of tcounter is
     dffar4 : dffar
       port map (
           r => r,
-          c => d3,
+          c => c4,
           q => q4,
           d => d4
       );
+
+    --c1 <= not d0;
+    --c2 <= not d1;
+    --c3 <= not d2;
+    --c4 <= not d3;
+    c1 <= d0;
+    c2 <= d1;
+    c3 <= d2;
+    c4 <= d3;
+
 
       -- port => signal -> port assignment operator
       -- signal <= value -> signal assignment operator

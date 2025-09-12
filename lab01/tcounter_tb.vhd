@@ -114,6 +114,54 @@ begin
     wait for 1 us;
     C <= '1';
     wait for 1 us;
+
+    -- tick 12
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 13
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 14
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 15
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+
+    -- tick 16
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 17
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 18
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
+    
+    -- tick 19
+    C <= '0';
+    wait for 1 us;
+    C <= '1';
+    wait for 1 us;
   end process;
 
   --process

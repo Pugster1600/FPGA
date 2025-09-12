@@ -1,20 +1,20 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-entity srCombinational is
-    port (
-        nS: in std_logic;
-        nR: in std_logic;
-        Q: out std_logic
-    );
-end srCombinational;
+entity SRLATCH1 is
+	port(
+		nS: in  std_logic;
+		nR: in  std_logic;
+		Q:  out std_logic
+	);
+end SRLATCH1;
 
-architecture combinational of srCombinational is
-    signal q_i: std_logic;          
-    signal nq_i: std_logic;         
-    begin                           
-        -- literally define the wire
-        Q<=q_i;                     
-        q_i<=(not nq_i) or (not nS);
-        nq_i<=(not q_i) or (not nR);
-end combinational;
+architecture arch of SRLATCH1 is
+	signal q_i:  std_logic;
+	signal nq_i: std_logic;
+begin
+	Q<=q_i;
+
+	q_i<=(not nq_i) or (not nS) after 0.1us;
+	nq_i<=(not q_i) or (not nR) after 0.1us;
+end arch;

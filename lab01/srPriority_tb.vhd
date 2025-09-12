@@ -26,7 +26,11 @@ begin
                  q => q);
     
     process
-        begin
+        begin      
+        ---------------------------
+        s <= '0'; r <= '1';
+        wait for 10ns;
+        
             -- 0 -> no defined state yet so 1,1 means hold (but no pervious value)
         s <= '1'; r <= '1';
         wait for 10 ns;
@@ -85,6 +89,8 @@ begin
         -- 12
         s <= '1'; r <= '1';
         wait for 10ns;
+        
+        ------------
         wait;
     end process;
 end tb;

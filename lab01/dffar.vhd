@@ -17,9 +17,9 @@ architecture behavior of dffar is
             begin
             -- r is prioritize
                 if r = '1' then
-                    q <= '0' after 0.1us; -- propogation delay
+                    q <= '0'; -- propogation delay
                 elsif rising_edge(c) then
-                    q <= d after 0.1us; --propogation delay
+                    q <= d; --propogation delay
                 end if;                                   
         end process;
     

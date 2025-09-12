@@ -266,3 +266,38 @@ rising_edge clk now is something that is hard to describe combinationally (possi
 
 so the learning curve is from actual integration rather than syntax vs programming languages where you need to learn the tools the language provides
 since the logic is the same across all 
+
+Yes, RISC-V is an architecture that follows the RISC (Reduced Instruction Set Computer) design philosophy.
+
+Breakdown:
+
+RISC (Reduced Instruction Set Computer):
+
+A design approach that uses a small, highly optimized set of instructions.
+
+Focuses on simplicity, speed, and efficiency.
+
+Each instruction typically executes in a single clock cycle.
+
+RISC-V:
+
+Pronounced "RISC-five"
+
+An open standard Instruction Set Architecture (ISA) based on RISC principles.
+
+Developed at UC Berkeley in 2010.
+
+Designed to be:
+
+Modular (base ISA + optional extensions)
+
+Open-source (no licensing fees)
+
+Simple and clean, making it suitable for research, education, and industry use.
+
+So in short:
+
+✅ RISC-V is a modern implementation of the RISC ISA philosophy.
+It follows RISC principles and builds an open, extensible architecture around them.
+
+Let me know if you want a comparison with other RISC architectures like ARM or MIPS.

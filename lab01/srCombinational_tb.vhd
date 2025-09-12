@@ -1,94 +1,40 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
--- no ports for tb
-entity srCombinational_tb is
-end srCombinational_tb;
+entity SRLATCH1_TB is
+end SRLATCH1_TB;
 
-architecture tb of srCombinational_tb is
-    -- 1. signals
-    signal s : std_logic := '1'; -- default 1 since its a not version of SR latch
-    signal r : std_logic := '1';
-    signal q : std_logic;
-    
-    -- 2. component instantiation
-    component srCombinational is
-        port(
-            nS: in std_logic;
-            nR: in std_logic;
-            Q: out std_logic
-        );
-    end component;
+architecture arch of SRLATCH1_TB is
+	component SRLATCH1
+		port(
+			nS: in  std_logic;
+			nR: in  std_logic;
+			Q:  out std_logic
+		);
+	end component;
+	signal nS: std_logic:='1';
+	signal nR: std_logic:='1';
+	signal Q:  std_logic;
 begin
-    test : srCombinational
-        port map(nS => s,
-                 nR => R,
-                 q => q);
-    
-    -- 1. Q = 0, !Q = 0, S = 0, R = 0
-    process
-        begin
-        -- 0 -> no defined state yet so 1,1 means hold (but no pervious value)
-        s <= '1'; r <= '1';
-        wait for 10 ns;
-        
-        s <= '0'; r <= '1';
-        wait for 10ns;
-        
-        s <= '1'; r <= '1';
-        wait for 10ns;
-        
-        -- 1
-        s <= '0'; r <= '1';
-        wait for 10ns;
-        
-        -- 2
-        s <= '1'; r <= '0';
-        wait for 10ns;
-        
-        -- 3
-        s <= '1'; r <= '1';
-        wait for 10ns;
-        
-        -- 4
-        s <= '1'; r <= '0';
-        wait for 10ns;
-        
-        -- 5
-        s <= '0'; r <= '1';
-        wait for 10ns;
-        
-        -- 6
-        s <= '1'; r <= '1';
-        wait for 10ns;
-        
-        -- going to 00 or away from 00
-        -- 7
-        s <= '0'; r <= '0';
-        wait for 10ns;
-        
-        -- 8
-        s <= '1'; r <= '0';
-        wait for 10ns;
-        
-        -- 9
-        s <= '0'; r <= '0';
-        wait for 10ns;
-        
-        -- 10
-        s <= '0'; r <= '1';
-        wait for 10ns;
-        
-        -- 11
-        s <= '0'; r <= '0';
-        wait for 10ns;
-        
-        -- 12
-        s <= '1'; r <= '1';
-        wait for 10ns;
-        
-        wait;
-    end process;
+	test: SRLATCH1 port map (nS=>nS,nR=>nR,Q=>Q);
 
-end tb;
-    
+	process
+	begin
+		-- You must expand the test cases here
+		-- so that all 12 transistions are tested.
+		nS<='1';nR<='1';
+		wait for 1 us;
+		nS<='0';nR<='0';
+		wait for 1 us;
+		nS<='1';nR<='1';
+		wait for 1 us;
+		nS<='0';nR<='0';
+		wait for 1 us;
+		nS<='1';nR<='1';
+		wait for 1 us;
+		nS<='0';nR<='0';
+		wait for 1 us;
+		
+		wait;
+	end process;
+end arch;
