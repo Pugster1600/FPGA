@@ -1,7 +1,7 @@
 function gui04
 	% Comment out the next line, then uncomment the lines
 	% related to your OS
-	error('You must edit this file first!');
+	%error('You must edit this file first!');
 
 	% Use this line for Windows
 	% Edit 'COM4' to match your port

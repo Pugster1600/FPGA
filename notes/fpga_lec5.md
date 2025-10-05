@@ -161,6 +161,8 @@ Result division(uint32_t dividend, uint32_t divisor) {
   return result;
 }
 
+//program first then try to create it in fpga
+
 ## The general concept here:
 - We are starting off with the MSB of the dividend
 - We are seeing if that MSB >= divisor
@@ -172,6 +174,11 @@ Result division(uint32_t dividend, uint32_t divisor) {
 - when it is greater, dividend[0] = 1, the remainder changes to remainder - divisor (exactly like normal long division!!)
 - this is literally like normal long division that we do
 
+## Anotheer view of the concept
+- the current remainder is essentially the dividend
+- we keep shifting hte divisor, just like moving from the hundreds to the 10s place when 5 cant go into 2
+- since we are not keeping track of the quotient, no need to flip bits or anything
+- so we just subtract, just like long division
 
 
 WRITE A PIECE OF CODE FOR THIS
@@ -182,3 +189,126 @@ how does integer division work in terms of logic gates like if i am trying to im
 
 learn but also come up with original thoughts
 - like anyalyze why this works using your own thoughts first!
+
+describe cricuits based on behavior rather than structure
+- the important thing to note is that anything registered will update based on the previous value
+
+
+We are using nested counters since these are much easier to work with as a state machine
+- figure out why is this
+- in our case, we the counter to keep track of which divisor we are on
+- that is the state
+- this counter updates based on the previous state
+- like if 2 fails, we are going to skip all even ones since we know they wont work
+- so we need to flow on the state
+
+The counters countinously run in the counter
+- however, we want to figur eout if the factorization was finished or not
+- here, we can use a button to start the counter
+- so counter1 and counter2 hold idle states -> based on both counter1 and counter2 values
+- we dont know if we just arrived there or if we started there
+- we can use a flag to indicate that OR we can use an additional count slot for that
+- so basically that additional slot acts as the flag
+
+you have if else for prioritized things
+
+## Part A
+- user inputs a dividend
+- then it presses the button
+
+if something is assigned inside a process that is rising edge sensitive then it is inferred to be a flip flop
+
+make sure you have a general idea of how the behavioral descriptoin gets implemented in terms of the fpga primitives
+
+a balance between practical engineering classes and engineering theory classes
+- enginereing theory being math heavy ones
+- 
+
+-------------------------
+Excellent question. The short answer is: it depends on the kind of circuit being designed. Different fields of electrical engineering use different approaches — sometimes very mathematical (like signals and systems), and other times more practical or logic-based (like digital hardware design).
+
+Let’s break it down by type of circuit and how they are typically built:
+
+🧠 1. Analog Circuits
+
+(e.g. amplifiers, filters, oscillators)
+
+Approach: Signals and systems, circuit theory, and sometimes even control theory.
+
+Engineers model the circuit using differential equations and Laplace transforms.
+
+They use frequency-domain analysis (e.g., Bode plots) to design filters and amplifiers.
+
+Example: Designing a low-pass filter involves choosing R and C values to shape the frequency response — this is directly a signals and systems problem.
+
+Tools: MATLAB, SPICE simulators, circuit theory
+
+🖧 2. Digital Circuits
+
+(e.g. counters, CPUs, FPGAs)
+
+Approach: Logic design, state machines, hardware description languages (HDLs) like VHDL or Verilog.
+
+Designers don’t usually think in terms of signals and systems.
+
+They think in terms of logic gates, Boolean algebra, state transitions, and timing.
+
+A typical digital designer cares more about how to implement a finite state machine than solving a differential equation.
+
+Example: You might build a traffic light controller using a state machine, described in VHDL, not as a continuous-time system.
+
+Tools: VHDL/Verilog, simulation (ModelSim, Vivado), FPGAs
+
+📡 3. Signal Processing Systems
+
+(e.g. filters in communication systems, DSPs)
+
+Approach: Signals and systems at a higher level, especially in algorithm design.
+
+For implementation, DSP algorithms (like FIR filters or FFTs) are designed mathematically, then mapped to digital logic or software.
+
+The design is based on signals and systems, but the hardware implementation uses digital circuit techniques.
+
+Tools: MATLAB/Simulink for design, then VHDL/Verilog or C for implementation
+
+⚙️ 4. Embedded Systems
+
+(e.g. microcontrollers, SoCs)
+
+Approach: Software-focused, with hardware-software co-design.
+
+Use pre-built hardware (e.g., microcontrollers) and write firmware.
+
+Circuits are often just supporting components (e.g., buttons, sensors, power supplies).
+
+Tools: C/C++, Arduino, STM32, etc.
+
+Summary Table
+Circuit Type	Typical Approach	Involves Signals and Systems?
+Analog	Circuit theory, Laplace, freq.	✅ Yes
+Digital	Logic design, FSMs	❌ Rarely
+Signal Processing	Math → logic implementation	✅ Design: Yes, Impl: No
+Embedded Systems	Software + minimal hardware	❌ Mostly not
+🧩 Real-world example:
+
+Say you're designing an audio equalizer:
+
+The filter design uses signals and systems: frequency response, transfer functions.
+
+The implementation (on FPGA or microcontroller) uses logic or C code: registers, finite state machines, memory access.
+
+If you're learning digital design (like VHDL), you mostly won't use a signals and systems approach. But for analog or DSP, you absolutely will.
+
+Would you like a comparison between how you’d implement a filter in analog vs digital? Or how signals and systems math maps into VHDL/DSP blocks?
+
+SNR and BER end Eb/no
+
+descrbing circuits is just like code just a few extra things to consider like they are parallel etc
+- this is cause the abstraction is made in such a way!
+but maybe ai is better at a different set of abstractions
+- we know thats the case cause we break them down into tokens!
+like how fourier abstraction makes it easier for us to understand
+
+not sythensizable means no hardware equivalent 
+
+std_logic_vector to unsigned conversions -> appending bits, bit banging
