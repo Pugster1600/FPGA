@@ -197,7 +197,7 @@ begin
 		  load_i => '0',
 		  beg_i => std_logic_vector(to_unsigned(0, 4)),
 		  inc_i => std_logic_vector(to_unsigned(0, 4)),
-		  end_i => std_logic_vector(to_unsigned(2, 4)), -- hour values can be 0,1,2
+		  end_i => std_logic_vector(to_unsigned(1, 4)), -- hour values can be 0,1,2
 		  count_i => data_o(27 downto 24), 
 		  carry_i => carry_sig(7), 
 		  count_o => data_i(27 downto 24), 
@@ -205,12 +205,13 @@ begin
     );
   turbo_sig <= carry_sig(0);
   
-  beg_h1_sig<=std_logic_vector(to_unsigned(0,4));
+  beg_h1_sig<=std_logic_vector(to_unsigned(1,4)) when
+    data_i(27 downto 24)=std_logic_vector(to_unsigned(1,4)) --27 downto 24 is the tens place of hours
+    else std_logic_vector(to_unsigned(0,4));
   
   end_h1_sig<=std_logic_vector(to_unsigned(9,4)) when
-    (data_i(27 downto 24)=std_logic_vector(to_unsigned(0,4)) or 
-    data_i(27 downto 24)=std_logic_vector(to_unsigned(1,4)))
-    else std_logic_vector(to_unsigned(3,4));
+   data_i(27 downto 24)=std_logic_vector(to_unsigned(0,4))
+   else std_logic_vector(to_unsigned(2,4));
 
       --NEED TO REGISTER THIS OR ELSE RISK METASTABILITY
 			led <= led_sig;

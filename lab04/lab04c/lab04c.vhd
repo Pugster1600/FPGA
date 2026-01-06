@@ -160,7 +160,7 @@ begin
             is_prime <= '1';
           end if;
 
-            
+
       end if;
 
       if (factor = b"100000_00000000_00000001") then

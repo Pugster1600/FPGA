@@ -50,6 +50,7 @@ architecture arch of lab04a is
   signal dividend : unsigned(41 downto 0) := TO_UNSIGNED(0, 42);
   signal largest_factor : std_logic_vector(41 downto 0) := std_logic_vector(to_unsigned(1, 42));
   signal is_prime : std_logic := '1';
+  signal solution : std_logic_vector(41 downto 0);
 
 begin
   gui: lab04_gui port map(clk_i=>clk,rx_i=>rx,tx_o=>tx,
@@ -128,10 +129,10 @@ begin
           
           if (unsigned((41 downto 22 => '0') & factor) /= dividend) and is_prime = '1' then --21, 42
             is_prime <= '0';
-            data_i <= std_logic_vector(unsigned((41 downto 22 => '0') & factor));
+            solution <= std_logic_vector(unsigned((41 downto 22 => '0') & factor));
           
           elsif (unsigned((41 downto 22 => '0') & factor) = dividend) and is_prime = '1' then
-            data_i <= std_logic_vector(unsigned((41 downto 22 => '0') & factor));
+            solution <= std_logic_vector(unsigned((41 downto 22 => '0') & factor));
           end if;
             
       end if;
@@ -139,6 +140,8 @@ begin
       if (factor = b"100000_00000000_00000000") then
         if (is_prime = '1') then
           data_i <= std_logic_vector(dividend);
+        else
+          data_i <= solution;
         end if;
 
         start <= '0';
